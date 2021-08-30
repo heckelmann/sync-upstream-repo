@@ -16,12 +16,8 @@ inputs:
     default: 'master'
   github-token:    
     description: 'GitHub Token to push changes'
-    required: true
+    required: false
     default: ''  
-  github-token:    
-    description: 'GitHub Token to push changes'
-    required: true
-    default: ''
   rebase:    
     description: 'pull rebase - true will rebase'
     required: false
