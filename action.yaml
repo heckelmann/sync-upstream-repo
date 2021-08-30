@@ -1,0 +1,20 @@
+# action.yml
+name: 'Sync Upstream Repo'
+description: 'Keep upstream repositories in sync'
+inputs:
+  remote-repository:  # id of input
+    description: 'Remote Repository URL'
+    required: true
+    default: 'https://github.com/heckelmann/sync-upstream-repo.git'
+  remote-ref:  # id of input
+    description: 'Remote ref to sync from'
+    required: true
+    default: 'master'
+outputs:
+  sync-status: # id of output
+    description: 'Was the sync successful'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
