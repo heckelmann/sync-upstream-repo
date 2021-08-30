@@ -21,4 +21,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.remote-repository inputs.remote-ref inputs.target-ref }}
+    - ${{ inputs.remote-repository }}
+    - ${{ inputs.remote-ref }}
+    - ${{ inputs.target-ref }}
