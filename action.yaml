@@ -10,6 +10,10 @@ inputs:
     description: 'Remote ref to sync from'
     required: true
     default: 'master'
+  target-ref:  # id of input
+    description: 'Target ref to sync from'
+    required: true
+    default: 'master'    
 outputs:
   sync-status: # id of output
     description: 'Was the sync successful'
