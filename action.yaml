@@ -2,18 +2,30 @@
 name: 'Sync Upstream Repo'
 description: 'Keep upstream repositories in sync'
 inputs:
-  remote-repository:  # id of input
+  remote-repository: 
     description: 'Remote Repository URL'
     required: true
-    default: 'https://github.com/heckelmann/sync-upstream-repo.git'
-  remote-ref:  # id of input
+    default: 'https://github.com/heckelmann/test-src.git'
+  remote-ref: 
     description: 'Remote ref to sync from'
-    required: true
+    required: false
     default: 'master'
-  target-ref:  # id of input
-    description: 'Target ref to sync from'
+  target-ref: 
+    description: 'Target ref to sync to'
+    required: false
+    default: 'master'
+  github-token:    
+    description: 'GitHub Token to push changes'
     required: true
-    default: 'master'    
+    default: ''  
+  github-token:    
+    description: 'GitHub Token to push changes'
+    required: true
+    default: ''
+  rebase:    
+    description: 'pull rebase - true will rebase'
+    required: false
+    default: 'false'       
 outputs:
   sync-status: # id of output
     description: 'Was the sync successful'
@@ -24,3 +36,5 @@ runs:
     - ${{ inputs.remote-repository }}
     - ${{ inputs.remote-ref }}
     - ${{ inputs.target-ref }}
+    - ${{ inputs.github-token }}
+    - ${{ inputs.rebase }}
