@@ -29,11 +29,13 @@ set_upstream() {
 }
 
 checkout() {
+    git branch -v
     git checkout ${TARGET_REF}
     STATUS=$?
     if [ "${STATUS}" != 0 ]; then
         # checkout failed
-        log_out "${COMMAND_STATUS}" "Target branch '${INPUT_TARGET_SYNC_BRANCH}' could not be checked out."
+        echo "Target branch '${TARGET_REF}' could not be checked out."
+        exit 1
     fi
     echo "SUCCESS\n"
 }
