@@ -30,14 +30,15 @@ set_upstream() {
 
 checkout() {
     git branch -v
-    git checkout ${TARGET_REF}
-    STATUS=$?
-    if [ "${STATUS}" != 0 ]; then
-        # checkout failed
-        echo "Target branch '${TARGET_REF}' could not be checked out."
-        exit 1
-    fi
-    echo "SUCCESS\n"
+    echo "Checking out ${TARGET_REF}"
+    #git checkout ${TARGET_REF}
+    #STATUS=$?
+    #if [ "${STATUS}" != 0 ]; then
+    #    # checkout failed
+    #    echo "Target branch '${TARGET_REF}' could not be checked out."
+    #    exit 1
+    #fi
+    #echo "SUCCESS\n"
 }
 
 check_updates() {
