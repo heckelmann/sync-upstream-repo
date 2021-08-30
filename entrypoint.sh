@@ -35,7 +35,7 @@ checkout() {
         # checkout failed
         log_out "${COMMAND_STATUS}" "Target branch '${INPUT_TARGET_SYNC_BRANCH}' could not be checked out."
     fi
-    log_out "g" "SUCCESS\n"
+    echo "SUCCESS\n"
 }
 
 check_updates() {
