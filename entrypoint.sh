@@ -1,5 +1,8 @@
 #!/bin/sh -l
 
+# Enable Debug Mode
+set -x
+
 # Get command line arguments
 REMOTE_REPO=$1
 REMOTE_REF=$2
