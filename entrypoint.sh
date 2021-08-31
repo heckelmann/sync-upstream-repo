@@ -31,14 +31,14 @@ set_upstream() {
 checkout() {
     git branch -v
     echo "Checking out ${TARGET_REF}"
-    #git checkout ${TARGET_REF}
-    #STATUS=$?
-    #if [ "${STATUS}" != 0 ]; then
-    #    # checkout failed
-    #    echo "Target branch '${TARGET_REF}' could not be checked out."
-    #    exit 1
-    #fi
-    #echo "SUCCESS\n"
+    git checkout ${TARGET_REF}
+    STATUS=$?
+    if [ "${STATUS}" != 0 ]; then
+        # checkout failed
+        echo "Target branch '${TARGET_REF}' could not be checked out."
+        exit 1
+    fi
+    echo "SUCCESS\n"
 }
 
 check_updates() {
@@ -55,7 +55,7 @@ check_updates() {
         echo "No new commits"
         exit 0
     else
-        git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD
+        git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD --pretty=oneline
     fi
 
     exit 0
