@@ -41,6 +41,17 @@ checkout() {
     echo "SUCCESS\n"
 }
 
+sync_branches() {
+
+    git pull --no-edit upstream "${REMOTE_REF}"
+    COMMAND_STATUS=$?
+
+    if [ "${COMMAND_STATUS}" != 0 ]; then
+        # exit on commit pull fail
+        echo "New commits could not be pulled."
+    fi
+}
+
 check_updates() {
 
     git fetch upstream ${REMOTE_REF}
@@ -56,6 +67,7 @@ check_updates() {
         exit 0
     else
         git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD --pretty=oneline
+        sync_branches
     fi
 
     exit 0
