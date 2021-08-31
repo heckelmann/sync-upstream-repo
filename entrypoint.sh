@@ -42,7 +42,7 @@ write_log() {
         ;;
     
     # Exit without issues
-    [Ee]
+    [Ee])
         echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&2
         echo "::set-output name=sync-status::Failed"
         exit 0
