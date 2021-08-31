@@ -11,55 +11,99 @@ TARGET_REF=$4
 GH_PAT=$5
 REBASE=$6
 
+# Return value
+SYNC_STATUS="failed"
+
 # Setting GH Action Output Colors
 RED="\033[91m"
 YELLOW="\033[93m"
 GREEN="\033[32m"
-BLUE="\033[96m"
 BOLD="\033[1m"
-NORMAL="\033[m"
+DEFAULT="\033[m"
 
 # get action directory for sourcing subscripts
 ACTION_PARENT_DIR=$(dirname "$(dirname "$0")")
 
+write_log() {
+    case $1 in  
+    # Bold/Green
+    [Gg])
+        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
+        ;;        
+    
+    # Bold/Yellow
+    [Gg])
+        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
+        ;;                
 
-git_config() {
+    # Default log message
+    [Dd])
+        echo "$2" 1>&1
+        ;;
+    
+    # Exit without issues
+    [Ee]
+        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&2
+        echo "::set-output name=sync-status::Failed"
+        exit 0
+        ;;
+    # If something failed, exit with red
+    *)
+        echo "${BOLD}${RED}ERROR: ${DEFAULT} exit $1" 1>&2
+        echo "::set-output name=sync-status::${SYNC_STATUS}"
+        exit "$1"
+        ;;
+    esac                
+}
+
+git_config() {    
+    # Configure git client
     git config --global user.name "GitHub Sync Bot"
     git config --global user.email "action@github.com"
     git config --global pull.rebase $REBASE
+    log "g" "git client configured"
 }
 
 set_upstream() {    
+    # Add the upstream repository
     git remote add upstream "${REMOTE_REPO}"
+    log "g" "Remote added to repository"
 }
 
 checkout() {
+    # Show all branches
     git branch -v
+
+    # Checkout our target branch (should be already done within the checkout stage)
     echo "Checking out ${TARGET_REF}"
     git checkout ${TARGET_REF}
     STATUS=$?
     if [ "${STATUS}" != 0 ]; then
         # checkout failed
-        echo "Target branch '${TARGET_REF}' could not be checked out."
-        exit 1
+        log "$STATUS" "Target branch '${TARGET_REF}' could not be checked out."        
     fi
-    echo "SUCCESS\n"
+    
+    log "g" "Checked out ${TARGET_REF}"
 }
 
 sync_branches() {
 
     git pull --no-edit upstream "${REMOTE_REF}"
-    COMMAND_STATUS=$?
+    STATUS=$?
 
-    if [ "${COMMAND_STATUS}" != 0 ]; then
+    if [ "${STATUS}" != 0 ]; then
         # exit on commit pull fail
-        echo "New commits could not be pulled."
-        exit 1
+        log "$STATUS" "Could not get commits"        
     fi
 
     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
     git push origin "${TARGET_REF}"
+    STATUS=$?
 
+    if [ "${STATUS}" != 0 ]; then
+        # exit on commit pull fail
+        log "$STATUS" "Could not push changes to target"        
+    fi
 }
 
 check_updates() {
@@ -70,13 +114,12 @@ check_updates() {
     UPSTREAM_COMMIT_HASH=$(git rev-parse "upstream/${REMOTE_REF}")
 
     if [ -z "${LOCAL_COMMIT_HASH}" ] || [ -z "${UPSTREAM_COMMIT_HASH}" ]; then
-        echo "Error on checking for new commits"
-        exit 1
+        log "1" "Error on checking for new commits"
     elif [ "${LOCAL_COMMIT_HASH}" = "${UPSTREAM_COMMIT_HASH}" ]; then
-        echo "No new commits"
-        exit 0
+        log "e" "Nothing to do, no new commits to sync."
     else
         git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD --pretty=oneline
+        log "g" "Found new commits, will sync the branches"
         sync_branches
     fi
 
@@ -88,6 +131,4 @@ checkout
 set_upstream
 check_updates
 
-
-time=$(date)
-echo "::set-output name=sync-status::$time"
+echo "::set-output name=sync-status::$SYNC_STATUS"
