@@ -44,13 +44,13 @@ write_log() {
     # Exit without issues
     [Ee])
         echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&2
-        echo "::set-output name=sync-status::Failed"
+        echo "::set-output name=sync-status::${2}"
         exit 0
         ;;
     # If something failed, exit with red
     *)
         echo "${BOLD}${RED}ERROR: ${DEFAULT} exit $1" 1>&2
-        echo "::set-output name=sync-status::${SYNC_STATUS}"
+        echo "::set-output name=sync-status::${$2}"
         exit "$1"
         ;;
     esac                
@@ -104,6 +104,8 @@ sync_branches() {
         # exit on commit pull fail
         write_log "$STATUS" "Could not push changes to target"        
     fi
+    write_log "e" "Sync successful!"
+
 }
 
 check_updates() {
@@ -115,7 +117,7 @@ check_updates() {
 
     if [ -z "${LOCAL_COMMIT_HASH}" ] || [ -z "${UPSTREAM_COMMIT_HASH}" ]; then
         write_log "1" "Error on checking for new commits"
-    elif [ "${LOCAL_COMMIT_HASH}" = "${UPSTREAM_COMMIT_HASH}" ]; then
+    elif [ "${LOCAL_COMMIT_HASH}" = "${UPSTREAM_COMMIT_HASH}" ]; then        
         write_log "e" "Nothing to do, no new commits to sync."
     else
         git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD --pretty=oneline
