@@ -3,6 +3,9 @@
 # Enable Debug Mode
 #set -x
 
+# Enable color output
+export TERM=xterm-color
+
 # Get command line arguments
 REMOTE_REPO=$1
 REMOTE_REF=$2
