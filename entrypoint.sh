@@ -61,13 +61,13 @@ git_config() {
     git config --global user.name "GitHub Sync Bot"
     git config --global user.email "action@github.com"
     git config --global pull.rebase $REBASE
-    log "g" "git client configured"
+    write_log "g" "git client configured"
 }
 
 set_upstream() {    
     # Add the upstream repository
     git remote add upstream "${REMOTE_REPO}"
-    log "g" "Remote added to repository"
+    write_log "g" "Remote added to repository"
 }
 
 checkout() {
@@ -80,10 +80,10 @@ checkout() {
     STATUS=$?
     if [ "${STATUS}" != 0 ]; then
         # checkout failed
-        log "$STATUS" "Target branch '${TARGET_REF}' could not be checked out."        
+        write_log "$STATUS" "Target branch '${TARGET_REF}' could not be checked out."        
     fi
     
-    log "g" "Checked out ${TARGET_REF}"
+    write_log "g" "Checked out ${TARGET_REF}"
 }
 
 sync_branches() {
@@ -93,7 +93,7 @@ sync_branches() {
 
     if [ "${STATUS}" != 0 ]; then
         # exit on commit pull fail
-        log "$STATUS" "Could not get commits"        
+        write_log "$STATUS" "Could not get commits"        
     fi
 
     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
@@ -102,7 +102,7 @@ sync_branches() {
 
     if [ "${STATUS}" != 0 ]; then
         # exit on commit pull fail
-        log "$STATUS" "Could not push changes to target"        
+        write_log "$STATUS" "Could not push changes to target"        
     fi
 }
 
@@ -114,12 +114,12 @@ check_updates() {
     UPSTREAM_COMMIT_HASH=$(git rev-parse "upstream/${REMOTE_REF}")
 
     if [ -z "${LOCAL_COMMIT_HASH}" ] || [ -z "${UPSTREAM_COMMIT_HASH}" ]; then
-        log "1" "Error on checking for new commits"
+        write_log "1" "Error on checking for new commits"
     elif [ "${LOCAL_COMMIT_HASH}" = "${UPSTREAM_COMMIT_HASH}" ]; then
-        log "e" "Nothing to do, no new commits to sync."
+        write_log "e" "Nothing to do, no new commits to sync."
     else
         git log upstream/"${REMOTE_REF}" "${LOCAL_COMMIT_HASH}"..HEAD --pretty=oneline
-        log "g" "Found new commits, will sync the branches"
+        write_log "g" "Found new commits, will sync the branches"
         sync_branches
     fi
 
