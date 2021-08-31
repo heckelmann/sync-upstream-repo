@@ -21,7 +21,7 @@ SYNC_STATUS="failed"
 RED="\033[91m"
 YELLOW="\033[93m"
 GREEN="\033[32m"
-BOLD="\033[1m"
+BOLD="\e[1m"
 DEFAULT="\033[m"
 
 # get action directory for sourcing subscripts
@@ -31,12 +31,12 @@ write_log() {
     case $1 in  
     # Bold/Green
     [Gg])
-        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
+        echo -e "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
         ;;        
     
     # Bold/Yellow
     [Gg])
-        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
+        echo -e "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
         ;;                
 
     # Default log message
@@ -46,13 +46,13 @@ write_log() {
     
     # Exit without issues
     [Ee])
-        echo "${BOLD}${GREEN}$2${DEFAULT}" 1>&2
+        echo -e "${BOLD}${GREEN}$2${DEFAULT}" 1>&2
         echo "::set-output name=sync-status::${2}"
         exit 0
         ;;
     # If something failed, exit with red
     *)
-        echo "${BOLD}${RED}ERROR: ${DEFAULT} exit $1" 1>&2
+        echo -e "${BOLD}${RED}ERROR: ${DEFAULT} exit $1" 1>&2
         echo "::set-output name=sync-status::${$2}"
         exit "$1"
         ;;
