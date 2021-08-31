@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 # Enable Debug Mode
-set -x
+#set -x
 
 # Get command line arguments
 REMOTE_REPO=$1
