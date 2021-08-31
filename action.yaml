@@ -10,7 +10,7 @@ inputs:
     description: 'Remote ref to sync from'
     required: false
     default: 'master'
-  target-repo: 
+  target-repository: 
     description: 'Target Repository to sync to'
     required: false
     default: 'heckelmann/test-target'
@@ -35,6 +35,7 @@ runs:
   args:
     - ${{ inputs.remote-repository }}
     - ${{ inputs.remote-ref }}
+    - ${{ inputs.target-repository }}
     - ${{ inputs.target-ref }}
     - ${{ inputs.auth-token }}
     - ${{ inputs.rebase }}

@@ -22,6 +22,7 @@ NORMAL="\033[m"
 # get action directory for sourcing subscripts
 ACTION_PARENT_DIR=$(dirname "$(dirname "$0")")
 
+
 git_config() {
     git config --global user.name "GitHub Sync Bot"
     git config --global user.email "action@github.com"
