@@ -3,9 +3,10 @@
 # Get command line arguments
 REMOTE_REPO=$1
 REMOTE_REF=$2
-TARGET_REF=$3
-GH_PAT=$4
-REBASE=$5
+TARGET_REPO=$3
+TARGET_REF=$4
+GH_PAT=$5
+REBASE=$6
 
 # Setting GH Action Output Colors
 RED="\033[91m"
@@ -49,7 +50,12 @@ sync_branches() {
     if [ "${COMMAND_STATUS}" != 0 ]; then
         # exit on commit pull fail
         echo "New commits could not be pulled."
+        exit 1
     fi
+
+     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
+     git push origin "${TARGET_REF}"
+
 }
 
 check_updates() {

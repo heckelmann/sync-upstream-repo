@@ -10,11 +10,15 @@ inputs:
     description: 'Remote ref to sync from'
     required: false
     default: 'master'
+  target-repo: 
+    description: 'Target Repository to sync to'
+    required: false
+    default: 'heckelmann/test-target'
   target-ref: 
     description: 'Target ref to sync to'
     required: false
     default: 'master'
-  github-token:    
+  auth-token:    
     description: 'GitHub Token to push changes'
     required: false
     default: ''  
@@ -32,5 +36,5 @@ runs:
     - ${{ inputs.remote-repository }}
     - ${{ inputs.remote-ref }}
     - ${{ inputs.target-ref }}
-    - ${{ inputs.github-token }}
+    - ${{ inputs.auth-token }}
     - ${{ inputs.rebase }}
