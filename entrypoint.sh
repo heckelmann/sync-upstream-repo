@@ -53,8 +53,8 @@ sync_branches() {
         exit 1
     fi
 
-     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
-     git push origin "${TARGET_REF}"
+     #git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
+     #git push origin "${TARGET_REF}"
 
 }
 
