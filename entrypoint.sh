@@ -9,10 +9,10 @@ export TERM=xterm-color
 # Get command line arguments
 REMOTE_REPO=$1
 REMOTE_REF=$2
+TARGET_REF=$3
+GH_PAT=$4
+REBASE=$5
 TARGET_REPO=$GITHUB_REPOSITORY
-TARGET_REF=$4
-GH_PAT=$5
-REBASE=$6
 
 # Return value
 SYNC_STATUS="failed"
