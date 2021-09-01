@@ -9,7 +9,7 @@ export TERM=xterm-color
 # Get command line arguments
 REMOTE_REPO=$1
 REMOTE_REF=$2
-TARGET_REPO=$3
+TARGET_REPO=$GITHUB_REPOSITORY
 TARGET_REF=$4
 GH_PAT=$5
 REBASE=$6
