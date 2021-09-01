@@ -30,6 +30,14 @@ Perform a rebase or not. Default `false`
 
 Was the sync successful
 
+# Versions
+
+| Note | Version |
+|---|---|
+| First release | heckelmann/sync-upstream-repo@v1 |
+| Development | heckelmann/sync-upstream-repo@main |
+
+
 ## Example usage
 
 ```yaml
