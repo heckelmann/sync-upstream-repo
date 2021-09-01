@@ -16,8 +16,8 @@ inputs:
     default: 'master'
   auth-token:    
     description: 'GitHub Token to push changes'
-    required: false
-    default: ${{ secrets.GITHUB_TOKEN }}  
+    required: true
+    default: ''
   rebase:    
     description: 'pull rebase - true will rebase'
     required: false
