@@ -1,6 +1,6 @@
 # sync-upstream-repo
 
-This action will pull changes from a remote repository and merge/rebase a local branch to keep it up to date with the remote one.
+This action will sync (merge/rebase) a local branch from a remote repository.
 
 ## Inputs
 
