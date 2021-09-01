@@ -12,17 +12,13 @@ This action will pull changes from a remote repository and merge/rebase a local 
 
 The remote reference (branch or tag) to sync the changes from. Default `master`.
 
-## `target-repository`
-
-**Required** The GitHub project path to sync the changes to, like `heckelmann/test-target`. Default `heckelmann/test-target`
-
 ## `target-ref`
 
 The local reference (branch or tag) to sync the changes to. Default `master`.
 
 ## `auth-token`
 
-**Required** GitHub Token with access to the target repository
+**Required** GitHub Token with access to the target repository. You can use the default `${{ secrets.GITHUB_TOKEN }}`.
 
 ## `rebase`
     
@@ -63,12 +59,8 @@ jobs:
       uses: heckelmann/sync-upstream-repo@main
       with:
         remote-repository: https://github.com/heckelmann/test-src.git
-
-        # This will be translated to https://github.com/heckelmann/test-target.git
-        target-repository: heckelmann/test-target
-        auth-token: ${{ secrets.GH_TOKEN }}
         remote-ref: main
         target-ref: mylocal-main
-        auth-token: ${{ secrets.MY_GITHUB_TOKEN }}
+        auth-token: ${{ secrets.GITHUB_TOKEN }}
 
 ```
