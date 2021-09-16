@@ -21,7 +21,11 @@ inputs:
   rebase:    
     description: 'pull rebase - true will rebase'
     required: false
-    default: 'false'       
+    default: 'false'      
+  exclude-folders:    
+    description: 'Exclude certain folders to sync'
+    required: false
+    default: ''        
 outputs:
   sync-status: # id of output
     description: 'Was the sync successful'
@@ -34,3 +38,4 @@ runs:
     - ${{ inputs.target-ref }}
     - ${{ inputs.auth-token }}
     - ${{ inputs.rebase }}
+    - ${{ inputs.exclude-folders }}

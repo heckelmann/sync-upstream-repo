@@ -12,6 +12,7 @@ REMOTE_REF=$2
 TARGET_REF=$3
 GH_PAT=$4
 REBASE=$5
+EXCLUDE=$6
 TARGET_REPO=$GITHUB_REPOSITORY
 
 # Return value
@@ -35,8 +36,8 @@ write_log() {
         ;;        
     
     # Bold/Yellow
-    [Gg])
-        echo -e "${BOLD}${GREEN}$2${DEFAULT}" 1>&1
+    [Yy])
+        echo -e "${BOLD}${YELLOW}$2${DEFAULT}" 1>&1
         ;;                
 
     # Default log message
@@ -97,6 +98,28 @@ sync_branches() {
     if [ "${STATUS}" != 0 ]; then
         # exit on commit pull fail
         write_log "$STATUS" "Could not get commits"        
+    fi
+
+    if [ "${EXCLUDE}" != "" ]; then
+        # Get current default branch
+        MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+        
+        # Loop through the directories which should be excluded
+        for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
+        do
+            write_log "y" "Get master version of ${EXFOLDER}"
+            # Delete current directory
+            rm -rf ${EXFOLDER}
+
+            # Get directory from the default branch
+            git checkout ${MAIN} ${EXFOLDER}
+
+            # Add changes
+            git add .
+
+            # Commit changes
+            git commit -m "SyncBot - Keep ${EXFOLDER} from ${MAIN}"            
+        done      
     fi
 
     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
