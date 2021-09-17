@@ -26,7 +26,7 @@ Perform a rebase or not. Default `false`
 
 ## `exclude-folders`
     
-Exclude specific folders from sync - This will get the content from the default branch and add an additional commit message to the push. Default ``
+Exclude specific folders from sync - This will get the content from the default branch and add an additional commit message to the push. Default ` `
 
 ## Outputs
 
