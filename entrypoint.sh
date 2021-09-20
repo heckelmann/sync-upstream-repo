@@ -101,9 +101,16 @@ sync_branches() {
     fi
 
     if [ "${EXCLUDE}" != "" ]; then
+        write_log "y" "Excluding folders ${EXCLUDE}"
         # Get current default branch
         MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
-        
+        STATUS=$?
+        if [ "${STATUS}" != 0 ]; then
+            # exit on commit pull fail
+            write_log "$STATUS" "Could not get main branch from project"        
+        fi
+        write_log "g" "Main branch ${MAIN}"
+
         # Loop through the directories which should be excluded
         for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
         do
