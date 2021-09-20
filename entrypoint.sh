@@ -161,6 +161,16 @@ check_updates() {
     exit 0
 }
 
+write_log "d" "Sync action running..."
+
+write_log "d" "REMOTE_REPO $REMOTE_REPO"
+write_log "d" "REMOTE_REF $REMOTE_REF"
+write_log "d" "TARGET_REF $TARGET_REF"
+write_log "d" "TARGET_REPO $TARGET_REPO"
+write_log "d" "REBASE $REBASE"
+write_log "d" "EXCLUDE $EXCLUDE"
+
+
 git_config
 checkout
 set_upstream
