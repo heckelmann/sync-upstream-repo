@@ -94,7 +94,6 @@ sync_branches() {
 
     git pull --no-edit upstream "${REMOTE_REF}"
     STATUS=$?
-
     if [ "${STATUS}" != 0 ]; then
         # exit on commit pull fail
         write_log "$STATUS" "Could not get commits"        
@@ -170,10 +169,9 @@ write_log "d" "TARGET_REPO $TARGET_REPO"
 write_log "d" "REBASE $REBASE"
 write_log "d" "EXCLUDE $EXCLUDE"
 
-
 git_config
 checkout
 set_upstream
 check_updates
 
-echo "::set-output name=sync-status::$SYNC_STATUS"
+echo "::set-output name=sync-status::${SYNC_STATUS}"
