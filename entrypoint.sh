@@ -180,8 +180,7 @@ check_for_changes() {
     # check if commit is already within the local branch
     COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM})
 
-    echo $UPCOMM
-    echo $COMMIT
+    echo "Last upstream commit ${UPCOMM}, found this one in log ${COMMIT}"
 
     if [ "${COMMIT}" != "" ]
     then
