@@ -125,7 +125,7 @@ sync_branches() {
         # Loop through the directories which should be excluded
         for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
         do
-            #write_log "y" "Get master version of ${EXFOLDER}"
+            write_log "y" "Get ${MAIN} version of ${EXFOLDER}"
             # Delete current directory
             #rm -rf ${EXFOLDER}
 
