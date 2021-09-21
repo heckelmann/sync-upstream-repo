@@ -185,7 +185,7 @@ check_for_changes() {
     if [ "${COMMIT}" != "${UPCOMM}" ]
     then
         write_log "g" "Found new commits, will sync the branches"
-        #sync_branches
+        sync_branches
     else
         write_log "g" "Branch in sync"
     fi
