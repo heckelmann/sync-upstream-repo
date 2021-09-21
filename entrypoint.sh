@@ -172,6 +172,21 @@ check_updates() {
     exit 0
 }
 
+check_for_changes() {
+    # get last commit id from upstream
+    UPCOMM=$(git --no-pager log --oneline upstream/master | head -1 | awk '{print $1}')
+    
+    # check if commit is already within the local branch
+    COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM})
+    if [ "${COMMIT}" != "" ]
+    then
+        write_log "g" "Found new commits, will sync the branches"
+        #sync_branches
+    else
+        write_log "g" "Branch in sync"
+    fi
+}
+
 write_log "d" "Sync action running..."
 
 write_log "d" "REMOTE_REPO $REMOTE_REPO"
@@ -184,6 +199,7 @@ write_log "d" "EXCLUDE $EXCLUDE"
 git_config
 checkout
 set_upstream
-check_updates
+#check_updates
+check_for_changes
 
 echo "::set-output name=sync-status::${SYNC_STATUS}"
