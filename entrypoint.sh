@@ -182,6 +182,7 @@ check_for_changes() {
         sync_branches
     else
         write_log "g" "Branch in sync"
+        sync_branches
     fi
 }
 
