@@ -121,21 +121,21 @@ sync_branches() {
         do
             write_log "y" "Get ${MAIN} version of ${EXFOLDER}"
             # Delete current directory
-            #rm -rf ${EXFOLDER}
+            rm -rf ${EXFOLDER}
 
             # Get directory from the default branch
-            #git checkout origin/${MAIN} ${EXFOLDER}
+            git checkout origin/${MAIN} ${EXFOLDER}
 
             # Add changes
-            #git add .
+            git add .
 
             # Commit changes
-            #git commit -m "SyncBot - Keep ${EXFOLDER} from ${MAIN}"            
+            git commit -m "SyncBot - Keep ${EXFOLDER} from ${MAIN}"            
         done      
     fi
 
     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
-    git push origin "${TARGET_REF}"
+    #git push origin "${TARGET_REF}"
     STATUS=$?
 
     if [ "${STATUS}" != 0 ]; then
