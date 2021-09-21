@@ -134,7 +134,7 @@ sync_branches() {
         done      
     fi
 
-    git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
+    echo git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
     #git push origin "${TARGET_REF}"
     STATUS=$?
 
