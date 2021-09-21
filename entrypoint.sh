@@ -174,7 +174,9 @@ check_updates() {
 
 check_for_changes() {
     # get last commit id from upstream
-    UPCOMM=$(git --no-pager log --oneline upstream/master | head -1 | awk '{print $1}')
+    git remote -v
+    git fetch upstream ${REMOTE_REF}
+    UPCOMM=$(git --no-pager log --oneline upstream/${REMOTE_REF} | head -1 | awk '{print $1}')
     
     # check if commit is already within the local branch
     COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM})
