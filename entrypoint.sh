@@ -182,7 +182,7 @@ check_for_changes() {
 
     echo "Last upstream commit ${UPCOMM}, found this one in log ${COMMIT}"
 
-    if [ "${COMMIT}" != "" ]
+    if [ "${COMMIT}" != "${UPCOMM}" ]
     then
         write_log "g" "Found new commits, will sync the branches"
         #sync_branches
