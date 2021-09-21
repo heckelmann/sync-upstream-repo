@@ -178,7 +178,7 @@ check_for_changes() {
     UPCOMM=$(git --no-pager log --oneline upstream/${REMOTE_REF} | head -1 | awk '{print $1}')
     
     # check if commit is already within the local branch
-    COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM})
+    COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM} | awk '{print $1}')
 
     echo "Last upstream commit ${UPCOMM}, found this one in log ${COMMIT}"
 
