@@ -127,7 +127,7 @@ sync_branches() {
     fi
 
     
-    #git push origin "${TARGET_REF}"
+    git push origin "${TARGET_REF}"
     STATUS=$?
 
     if [ "${STATUS}" != 0 ]; then
