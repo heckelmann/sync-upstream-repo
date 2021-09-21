@@ -174,12 +174,15 @@ check_updates() {
 
 check_for_changes() {
     # get last commit id from upstream
-    git remote -v
     git fetch upstream ${REMOTE_REF}
     UPCOMM=$(git --no-pager log --oneline upstream/${REMOTE_REF} | head -1 | awk '{print $1}')
     
     # check if commit is already within the local branch
     COMMIT=$(git --no-pager log --oneline | grep ${UPCOMM})
+
+    echo $UPCOMM
+    echo $COMMIT
+
     if [ "${COMMIT}" != "" ]
     then
         write_log "g" "Found new commits, will sync the branches"
