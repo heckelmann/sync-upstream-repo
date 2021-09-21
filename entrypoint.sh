@@ -130,7 +130,7 @@ sync_branches() {
             rm -rf ${EXFOLDER}
 
             # Get directory from the default branch
-            git checkout ${MAIN} ${EXFOLDER}
+            git checkout origin/${MAIN} ${EXFOLDER}
 
             # Add changes
             git add .
