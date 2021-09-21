@@ -121,7 +121,7 @@ sync_branches() {
             write_log "$STATUS" "Could not get main branch from project"        
         fi
         write_log "g" "Main branch ${MAIN}"
-
+        git fetch origin ${MAIN}
         # Loop through the directories which should be excluded
         for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
         do
