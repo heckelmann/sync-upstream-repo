@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 # Enable Debug Mode
-# set -x
+set -x
 
 # Enable color output
 export TERM=xterm-color
@@ -125,18 +125,18 @@ sync_branches() {
         # Loop through the directories which should be excluded
         for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
         do
-            write_log "y" "Get master version of ${EXFOLDER}"
+            #write_log "y" "Get master version of ${EXFOLDER}"
             # Delete current directory
-            rm -rf ${EXFOLDER}
+            #rm -rf ${EXFOLDER}
 
             # Get directory from the default branch
-            git checkout origin/${MAIN} ${EXFOLDER}
+            #git checkout origin/${MAIN} ${EXFOLDER}
 
             # Add changes
-            git add .
+            #git add .
 
             # Commit changes
-            git commit -m "SyncBot - Keep ${EXFOLDER} from ${MAIN}"            
+            #git commit -m "SyncBot - Keep ${EXFOLDER} from ${MAIN}"            
         done      
     fi
 
