@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 # Enable Debug Mode
-set -x
+#set -x
 
 # Enable color output
 export TERM=xterm-color
@@ -103,17 +103,7 @@ sync_branches() {
     #    write_log "$STATUS" "Could not get main branch from project"        
     #fi
 
-    #git checkout $MAIN
-    #git branch -d ${TARGET_REF}
-    #git push origin --delete ${TARGET_REF}
-    #git checkout -b keptn-master upstream/${REMOTE_REF}
-
     git pull --no-edit upstream "${REMOTE_REF}" || true
-    #STATUS=$?
-    #if [ "${STATUS}" != 0 ]; then
-        # exit on commit pull fail
-    #    write_log "$STATUS" "Could not get commits"        
-    #fi
 
     if [ "${EXCLUDE}" != "" ]; then
         write_log "y" "Excluding folders ${EXCLUDE}"
