@@ -91,9 +91,10 @@ checkout() {
 }
 
 sync_branches() {
-
+    git remote -v
     #MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
     MAIN="master"
+    git fetch origin ${MAIN}
     #STATUS=$?
     #if [ "${STATUS}" != 0 ]; then
     #    # exit on commit pull fail
@@ -114,8 +115,7 @@ sync_branches() {
 
     if [ "${EXCLUDE}" != "" ]; then
         write_log "y" "Excluding folders ${EXCLUDE}"
-        write_log "g" "Main branch ${MAIN}"
-        git fetch origin ${MAIN}
+        write_log "g" "Main branch ${MAIN}"        
         # Loop through the directories which should be excluded
         for EXFOLDER in $(echo $EXCLUDE | tr "," "\n")
         do
