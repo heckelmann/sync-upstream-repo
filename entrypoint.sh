@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 # Enable Debug Mode
-set -x
+# set -x
 
 # Enable color output
 export TERM=xterm-color
