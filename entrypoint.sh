@@ -91,9 +91,10 @@ checkout() {
 }
 
 sync_branches() {
+    git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
     git remote -v
     #MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
-    MAIN="master"
+    MAIN="master"    
     git fetch origin ${MAIN}
     #STATUS=$?
     #if [ "${STATUS}" != 0 ]; then
@@ -134,7 +135,7 @@ sync_branches() {
         done      
     fi
 
-    echo git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
+    
     #git push origin "${TARGET_REF}"
     STATUS=$?
 
