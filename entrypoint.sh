@@ -173,8 +173,7 @@ check_for_changes() {
         write_log "g" "Found new commits, will sync the branches"
         sync_branches
     else
-        write_log "g" "Branch in sync"
-        sync_branches
+        write_log "e" "Branch in sync"        
     fi
 }
 
