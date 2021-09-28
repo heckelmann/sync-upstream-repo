@@ -102,8 +102,10 @@ sync_branches() {
     #    # exit on commit pull fail
     #    write_log "$STATUS" "Could not get main branch from project"        
     #fi
-
-    $RES=$(git pull --no-edit upstream "${REMOTE_REF}")
+    echo "Pulling changes from upstream..."
+    
+    RES=$(git pull --no-edit upstream ${REMOTE_REF})
+    echo "Merge output"
     echo $RES
     #if [ -z "${RES##*refusing*}" ]; then        
     #    write_log "$STATUS" "Could not merge branches: ${RES}"        
