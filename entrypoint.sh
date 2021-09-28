@@ -103,10 +103,9 @@ sync_branches() {
     #    write_log "$STATUS" "Could not get main branch from project"        
     #fi
 
-    git pull --no-edit upstream "${REMOTE_REF}" || true
-    STATUS=$?
-    if [ "${STATUS}" != 0 ]; then        
-        write_log "$STATUS" "Could not merge branches!"        
+    $RES=$(git pull --no-edit upstream "${REMOTE_REF}" || true)
+    if [ -z "${REST##*refusing*}" ]; then        
+        write_log "$STATUS" "Could not merge branches: ${RES}"        
     fi
 
     if [ "${EXCLUDE}" != "" ]; then
