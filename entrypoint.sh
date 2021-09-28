@@ -93,8 +93,8 @@ checkout() {
 sync_branches() {
     git remote set-url origin "https://${GITHUB_ACTOR}:${GH_PAT}@github.com/${TARGET_REPO}.git"
     git remote -v
-    MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
-    #MAIN="master"    
+    #MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+    MAIN="master"    
     echo "Detected main branch ${MAIN}"
     git fetch origin ${MAIN}
     #STATUS=$?
@@ -104,6 +104,10 @@ sync_branches() {
     #fi
 
     git pull --no-edit upstream "${REMOTE_REF}" || true
+    STATUS=$?
+    if [ "${STATUS}" != 0 ]; then        
+        write_log "$STATUS" "Could not merge branches!"        
+    fi
 
     if [ "${EXCLUDE}" != "" ]; then
         write_log "y" "Excluding folders ${EXCLUDE}"
